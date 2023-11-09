@@ -4,12 +4,39 @@
 // of the anonymous function on line 6
 
 const caesarModule = (function () {
-  // you can add any code you want within this function scope
+  
 
   function caesar(input, shift, encode = true) {
-    // your solution code here
+     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    if (!shift || shift == 0 || shift >= alphabet.length || shift <= (alphabet.length)* -1) {
+      return false;
+    }
+    
+    if (encode === false) {
+      shift = shift * (-1);
+    }
+    
+    input = input.toLowerCase();
+    let encodedMessage = "";
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i];
+      if (!alphabet.includes(char)) {
+        encodedMessage += char;
+      }
+      for (let i = 0; i < alphabet.length; i++) {
+        if (char === alphabet[i]) {
+          if (i + shift >= alphabet.length) {
+            encodedMessage += alphabet[(i + shift) - alphabet.length];
+          } else if (i + shift < 0) {
+            encodedMessage += alphabet[26 + (i + shift)]
+          } else {
+            encodedMessage += alphabet[i + shift]
+          }
+        }
+      }
+    }
+    return encodedMessage;
   }
-
   return {
     caesar,
   };
